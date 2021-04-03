@@ -9,7 +9,3 @@ export const randomAyah = (min, max) => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
-
-// 6.236 ayah
-// 114 surah
-// 30 juz
