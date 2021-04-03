@@ -1,31 +1,62 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { getAyah } from "../src/data";
+import { getAyah, getAyahCdn } from "../src/data";
 import { randomSurah, randomAyah } from "../src/randomNum";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const [text, setText] = useState({});
-  const ayah = () => randomAyah(1, 9);
-  const get = getAyah(1, ayah());
+  const data = text.data;
+  const valid = text.status === "OK";
+  const maxAyah = valid && data.numberOfAyahs;
+  const numberSurah = randomSurah(1, 114);
+  const numberAyah = randomAyah(0, maxAyah);
+  const source = getAyah(numberSurah);
+  const surah = valid && data.number;
+  const ayah = valid && data.ayahs[numberAyah];
+  const source_cdn = getAyahCdn(surah, ayah.numberInSurah);
+
   useEffect(() => {
-    fetch(get)
+    let mounted = true;
+    fetch(source)
       .then((response) => response.json())
-      .then((data) => setText(data))
-      .catch((error) => console.log("Fetch error : "));
+      .then((data) => mounted && setText(data))
+      .catch((error) => console.log("Info : ", error));
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, []);
 
-  console.log(text);
+  // console.log(data);
+  // console.log(source_cdn);
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Read Random Ayah</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1>{text.status === "OK." ? text.data.text.arab : null}</h1>
-        <h2>{text.status === "OK." ? text.data.translation.id : null}</h2>
+        <h3 className={styles.bismillah}>
+          بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
+        </h3>
+        {text.status === "OK" ? (
+          <div className={styles.ayah}>
+            <h1>
+              {data.englishName} : {surah}
+            </h1>
+            {/* <h3>
+              ({ayah.numberInSurah}) - {ayah.text}
+            </h3> */}
+            <img src={source_cdn} alt={data.englishName} />
+          </div>
+        ) : (
+          <>
+            <h1>please wait.. :)</h1>
+          </>
+        )}
       </main>
     </div>
   );
