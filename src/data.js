@@ -1,5 +1,5 @@
 const URLSutanlab = "https://api.quran.sutanlab.id/surah";
-const URLAlquranCloud = "http://api.alquran.cloud/v1/surah";
+const URLAlquranCloud = "https://api.alquran.cloud/v1/surah";
 const CDNAlquranCloud = "https://cdn.alquran.cloud/media/image";
 
 export const getTranslate = (surah, ayah) => `${URLSutanlab}/${surah}/${ayah}`;
