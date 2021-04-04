@@ -31,8 +31,8 @@
 }
 
 .ayah > img {
-  margin: auto;
-  padding: 1em 1em;
+  margin: 1em auto;
+  padding: 0.2em 0.2em;
   max-width: 1000px;
   width: 100%;
 }
