@@ -1,38 +1,45 @@
+@font-face {
+  font-family: "me-quran";
+  src: url("../public/Assets/font/me_quran_volt_newmet.ttf");
+}
+
 .container {
+  padding: 0 1rem;
+  background: linear-gradient(to top, #74ebd5, #acb6e5);
   min-height: 100vh;
-  padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .main {
-  padding: 5rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-rows: 2fr 10fr 2fr;
+  align-content: stretch;
   text-align: center;
+  height: 100vh;
 }
 
 .bismillah {
-  margin: 0.5em auto;
-  line-height: 1.15;
+  border-bottom: 1px solid black;
+  display: grid;
+  align-items: center;
 }
 
-.ayah > h1 {
+.surah {
+  margin: auto;
+  display: grid;
+}
+
+.surahName {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ayah {
+  font-family: "me-quran";
+  font-weight: 200;
   font-size: 2rem;
 }
 
-.ayah > h3 {
-  font-size: 3rem;
-}
-
-.ayah > img {
-  margin: 1em auto;
-  padding: 0.2em 0.2em;
-  max-width: 1000px;
-  width: 100%;
+.surah_description {
+  border-top: 1px solid black;
+  display: grid;
+  align-items: center;
 }
