@@ -1,6 +1,5 @@
-import Head from "next/head";
 import { useEffect, useState } from "react";
-import { getAyah, getAyahCdn } from "../src/data";
+import { getAyah } from "../src/data";
 import { randomSurah, randomAyah } from "../src/randomNum";
 import styles from "../styles/Home.module.css";
 
@@ -28,42 +27,31 @@ export default function Home() {
   }, []);
 
   return (
-    <>
-      <Head>
-        <meta
-          http-equiv="Content-Security-Policy"
-          content="upgrade-insecure-requests"
-        />
-        <title>Read Random Ayah</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.container}>
-        <div className={styles.main}>
-          <div className={styles.bismillah}>
-            <h1 className={styles.ayah}>
-              بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
-            </h1>
-          </div>
-          <div className={styles.surah}>
-            {text.status === "OK" ? (
-              <>
-                <h3 className={styles.surahName}>{data.englishName}</h3>
-                <p className={styles.ayah}>{ayah.text}</p>
-              </>
-            ) : (
-              <div>
-                <h1>please wait.. :)</h1>
-              </div>
-            )}
-          </div>
-          <div className={styles.surah_description}>
-            <p>
-              Surah {surah} : {ayah.numberInSurah}
-            </p>
-          </div>
+    <main className={styles.container}>
+      <div className={styles.main}>
+        <div className={styles.bismillah}>
+          <h1 className={styles.ayah}>
+            بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
+          </h1>
         </div>
-      </main>
-    </>
+        <div className={styles.surah}>
+          {text.status === "OK" ? (
+            <>
+              <h2 className={styles.surahName}>{data.englishName}</h2>
+              <p className={styles.ayah}>{ayah.text}</p>
+            </>
+          ) : (
+            <div>
+              <h1>please wait.. :)</h1>
+            </div>
+          )}
+        </div>
+        <div className={styles.surah_description}>
+          <p>
+            Surah {surah} : {ayah.numberInSurah}
+          </p>
+        </div>
+      </div>
+    </main>
   );
 }
