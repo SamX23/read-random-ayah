@@ -14,7 +14,6 @@ export default function Home() {
   const source = getAyah(numberSurah);
   const surah = valid && data.number;
   const ayah = valid && data.ayahs[numberAyah];
-  const source_cdn = getAyahCdn(surah, ayah.numberInSurah);
 
   useEffect(() => {
     let mounted = true;
@@ -28,11 +27,8 @@ export default function Home() {
     };
   }, []);
 
-  // console.log(data);
-  // console.log(source_cdn);
-
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <meta
           http-equiv="Content-Security-Policy"
@@ -42,23 +38,32 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h3 className={styles.bismillah}>
-          بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
-        </h3>
-        {text.status === "OK" ? (
-          <div className={styles.ayah}>
-            <h1>
-              {data.englishName} : {surah}
+      <main className={styles.container}>
+        <div className={styles.main}>
+          <div className={styles.bismillah}>
+            <h1 className={styles.ayah}>
+              بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
             </h1>
-            <img src={source_cdn} alt={data.englishName} />
           </div>
-        ) : (
-          <>
-            <h1>please wait.. :)</h1>
-          </>
-        )}
+          <div className={styles.surah}>
+            {text.status === "OK" ? (
+              <>
+                <h3 className={styles.surahName}>{data.englishName}</h3>
+                <p className={styles.ayah}>{ayah.text}</p>
+              </>
+            ) : (
+              <div>
+                <h1>please wait.. :)</h1>
+              </div>
+            )}
+          </div>
+          <div className={styles.surah_description}>
+            <p>
+              Surah {surah} : {ayah.numberInSurah}
+            </p>
+          </div>
+        </div>
       </main>
-    </div>
+    </>
   );
 }
