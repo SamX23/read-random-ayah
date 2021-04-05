@@ -1,20 +1,20 @@
 @font-face {
   font-family: "me-quran";
-  src: url("../public/Assets/font/me_quran_volt_newmet.ttf");
+  src: local("me-quran"), url("../public/Assets/font/me_quran_volt_newmet.ttf");
+  font-display: swap;
 }
 
 .container {
   padding: 0 1rem;
   background: linear-gradient(to top, #74ebd5, #acb6e5);
-  min-height: 100vh;
 }
 
 .main {
   display: grid;
-  grid-template-rows: 2fr 10fr 2fr;
+  grid-template-rows: auto 10fr auto;
   align-content: stretch;
   text-align: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .bismillah {
