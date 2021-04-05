@@ -2,17 +2,41 @@
   "name": "A simple web app shows random ayah",
   "short_name": "quran-randomizer",
   "theme_color": "#ffffff",
-  "background_color": "#004740",
-  "display": "fullscreen",
+  "background_color": "#ffffff",
+  "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
   "start_url": "/",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "72x72",
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
       "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/safari-pinned-tab.svg",
+      "sizes": "320x320",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "splash_pages": null
+  "shortcuts": [
+    {
+      "name": "Have you read ayattul qur'an today ?",
+      "short_name": "odoh",
+      "description": "read a randomize ayattul qur'an",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }
