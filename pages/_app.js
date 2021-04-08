@@ -1,4 +1,4 @@
-import Meta from "../src/meta";
+import Meta from "../components/meta";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {

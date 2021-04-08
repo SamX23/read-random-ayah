@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getAyah } from "../src/data";
-import { randomSurah, randomAyah } from "../src/randomNum";
+import { getAyah } from "../utils/data";
+import { randomSurah, randomAyah } from "../utils/randomNum";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
