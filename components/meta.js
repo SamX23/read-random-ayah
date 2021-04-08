@@ -4,7 +4,7 @@ const Meta = () => {
   return (
     <Head>
       <meta
-        http-equiv="Content-Security-Policy"
+        httpEquiv="Content-Security-Policy"
         content="upgrade-insecure-requests"
       />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
