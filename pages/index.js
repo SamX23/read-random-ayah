@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Nav from "../components/nav";
 import { getAyah } from "../utils/data";
 import { randomSurah, randomAyah } from "../utils/randomNum";
 import styles from "../styles/Home.module.css";
@@ -27,31 +28,36 @@ export default function Home() {
   }, []);
 
   return (
-    <main className={styles.container}>
-      <div className={styles.main}>
-        <div className={styles.bismillah}>
-          <h1 className={styles.ayah}>
-            بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
-          </h1>
+    <>
+      <Nav />
+      <main className={styles.container}>
+        <div className={styles.main}>
+          <div className={styles.bismillah}>
+            <h1 className={styles.ayah}>
+              بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
+            </h1>
+          </div>
+          <div className={styles.surah}>
+            {text.status === "OK" ? (
+              <>
+                <h2 className={styles.surahName}>{data.englishName}</h2>
+                <p className={styles.ayah}>{ayah.text}</p>
+              </>
+            ) : (
+              <div>
+                <h1>please wait.. :)</h1>
+              </div>
+            )}
+          </div>
+          <div className={styles.surah_description}>
+            {surah && (
+              <p>
+                Surah {surah} : {ayah.numberInSurah}
+              </p>
+            )}
+          </div>
         </div>
-        <div className={styles.surah}>
-          {text.status === "OK" ? (
-            <>
-              <h2 className={styles.surahName}>{data.englishName}</h2>
-              <p className={styles.ayah}>{ayah.text}</p>
-            </>
-          ) : (
-            <div>
-              <h1>please wait.. :)</h1>
-            </div>
-          )}
-        </div>
-        <div className={styles.surah_description}>
-          <p>
-            Surah {surah} : {ayah.numberInSurah}
-          </p>
-        </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
