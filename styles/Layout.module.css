@@ -1,0 +1,35 @@
+.navigation {
+  position: fixed;
+  left: 0;
+  min-width: 25vw;
+  background-color: rgb(189, 234, 255);
+}
+
+.sidebar_Button > span {
+  position: fixed;
+  z-index: 10;
+  padding: 1rem;
+  font-size: 3rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.sidebar {
+  min-height: 100vh;
+}
+
+.menu > h1 {
+}
+.menu > ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.menu > ul > li {
+  text-align: center;
+  font-size: large;
+  padding: 1.5rem;
+  background-color: rgb(214, 255, 255);
+  border: 1px solid azure;
+}
