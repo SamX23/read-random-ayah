@@ -18,18 +18,16 @@ const Nav = () => {
             <h1>MENU</h1>
             <ul>
               <li>
-                <a>Home</a>
+                <a>HOME</a>
               </li>
               <li>
-                <a>Qur'an</a>
+                <a>QURAN</a>
               </li>
               <li>
-                <a>Do'a</a>
-              </li>
-              <li>
-                <a>About</a>
+                <a>ABOUT</a>
               </li>
             </ul>
+            <p>Version 1.0</p>
           </div>
         </div>
       )}
