@@ -24,7 +24,7 @@ const Nav = () => {
                 <a>QURAN</a>
               </li>
               <li>
-                <a>ABOUT</a>
+                <a href="https://github.com/SamX23/read-random-ayah">ABOUT</a>
               </li>
             </ul>
             <p>Version 1.0</p>
