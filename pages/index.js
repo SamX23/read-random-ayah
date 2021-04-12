@@ -1,31 +1,18 @@
-import { useEffect, useState } from "react";
 import Nav from "../components/nav";
-import { getAyah } from "../utils/data";
-import { randomSurah, randomAyah } from "../utils/randomNum";
 import styles from "../styles/Home.module.css";
+import Surah from "../components/surah";
+import SurahDescription from "../components/surahDescription";
+import { useGlobalState } from "../utils/context";
+import { randomAyah } from "../utils/randomNum";
 
 export default function Home() {
-  const [text, setText] = useState({});
-  const data = text.data;
-  const valid = text.status === "OK";
+  const result = useGlobalState();
+  const valid = result.status === "OK";
+  const data = result.data;
   const maxAyah = valid && data.numberOfAyahs;
-  const numberSurah = randomSurah(1, 114);
   const numberAyah = randomAyah(0, maxAyah);
-  const source = getAyah(numberSurah);
   const surah = valid && data.number;
   const ayah = valid && data.ayahs[numberAyah];
-
-  useEffect(() => {
-    let mounted = true;
-    fetch(source)
-      .then((response) => response.json())
-      .then((data) => mounted && setText(data))
-      .catch((error) => console.log("Info : ", error));
-
-    return function cleanup() {
-      mounted = false;
-    };
-  }, []);
 
   return (
     <>
@@ -37,25 +24,14 @@ export default function Home() {
               بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
             </h1>
           </div>
-          <div className={styles.surah}>
-            {text.status === "OK" ? (
-              <>
-                <h2 className={styles.surahName}>{data.englishName}</h2>
-                <p className={styles.ayah}>{ayah.text}</p>
-              </>
-            ) : (
-              <div>
-                <h1>please wait.. :)</h1>
-              </div>
-            )}
-          </div>
-          <div className={styles.surah_description}>
-            {surah && (
-              <p>
-                Surah {surah} : {ayah.numberInSurah}
-              </p>
-            )}
-          </div>
+          <Surah styles={styles} valid={valid} data={data} ayah={ayah} />
+          <SurahDescription
+            styles={styles}
+            valid={valid}
+            data={data}
+            ayah={ayah}
+            surah={surah}
+          />
         </div>
       </main>
     </>
