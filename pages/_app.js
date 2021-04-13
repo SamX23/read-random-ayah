@@ -9,7 +9,7 @@ const MyApp = ({ Component, pageProps }) => {
 
   useEffect(() => {
     let mounted = true;
-    randomFetch().then((data) => mounted && setData(data));
+    randomFetch().then((result) => mounted && setData(result));
     return function cleanup() {
       mounted = false;
     };
