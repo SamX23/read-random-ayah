@@ -3,12 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "plugin:@next/next/recommended",
-    "plugin:react/recommended",
-    "airbnb",
-    "prettier"
-  ],
+  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -22,6 +17,7 @@
     "react/jsx-props-no-spreading": 0,
     "react/react-in-jsx-scope": 0,
     "react/require-default-props": 0,
-    "no-console": 0
+    "no-console": 0,
+    "react/prop-types": 0
   }
 }
