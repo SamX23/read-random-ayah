@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Nav from "../components/nav";
 import styles from "../styles/Home.module.css";
 import Surah from "../components/surah";
@@ -7,12 +8,30 @@ import { randomAyah } from "../utils/randomNum";
 
 export default function Home() {
   const result = useGlobalState();
-  const valid = result.status === "OK";
-  const data = result.data;
-  const maxAyah = valid && data.numberOfAyahs;
-  const numberAyah = randomAyah(0, maxAyah);
-  const surah = valid && data.number;
-  const ayah = valid && data.ayahs[numberAyah];
+  const [numberAyah, setNumberAyah] = useState(0);
+  const { data, status } = result;
+  const valid = status === "OK";
+
+  const { numberOfAyahs, number, ayahs } = valid && data;
+  const maxAyah = valid && numberOfAyahs;
+  const surah = valid && number;
+  const ayah = valid && ayahs[numberAyah];
+
+  useEffect(() => {
+    setNumberAyah(randomAyah(0, maxAyah));
+  }, [result]);
+
+  const handleNext = () => {
+    if (numberAyah !== numberOfAyahs - 1) {
+      setNumberAyah((noAyah) => noAyah + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (numberAyah !== 0) {
+      setNumberAyah((noAyah) => noAyah - 1);
+    }
+  };
 
   return (
     <>
@@ -24,14 +43,27 @@ export default function Home() {
               بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
             </h1>
           </div>
-          <Surah styles={styles} valid={valid} data={data} ayah={ayah} />
-          <SurahDescription
-            styles={styles}
-            valid={valid}
-            data={data}
-            ayah={ayah}
-            surah={surah}
-          />
+          {valid ? (
+            <>
+              <Surah styles={styles} ayah={ayah} />
+              <SurahDescription
+                styles={styles}
+                data={data}
+                surah={surah}
+                ayah={ayah}
+              />
+              <button type="button" onClick={() => handlePrevious()}>
+                Previous
+              </button>
+              <button type="button" onClick={() => handleNext()}>
+                Next
+              </button>
+            </>
+          ) : (
+            <div>
+              <h1>please wait.. :)</h1>
+            </div>
+          )}
         </div>
       </main>
     </>
