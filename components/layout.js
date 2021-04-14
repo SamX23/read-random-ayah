@@ -1,9 +1,9 @@
-import styles from "../styles/Layout.module.css";
-import Nav from "./nav";
+// import styles from "../styles/Layout.module.css";
+// import Nav from "./nav";
 
 const Layout = ({ children }) => (
   <>
-    <Nav styles={styles} />
+    {/* <Nav styles={styles} /> */}
     {children}
   </>
 );
