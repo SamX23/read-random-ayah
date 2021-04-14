@@ -1,26 +1,13 @@
-import { useEffect, useState } from "react";
 import Meta from "../components/meta";
 import "../styles/globals.css";
 import { StateProvider } from "../utils/context";
-import { randomFetch } from "../utils/fetch";
+import reducer, { initialState } from "../utils/reducer";
 
-const MyApp = ({ Component, pageProps }) => {
-  const [data, setData] = useState({});
-
-  useEffect(() => {
-    let mounted = true;
-    randomFetch().then((result) => mounted && setData(result));
-    return function cleanup() {
-      mounted = false;
-    };
-  }, []);
-
-  return (
-    <StateProvider value={data}>
-      <Meta />
-      <Component {...pageProps} />
-    </StateProvider>
-  );
-};
+const MyApp = ({ Component, pageProps }) => (
+  <StateProvider initialState={initialState} reducer={reducer}>
+    <Meta />
+    <Component {...pageProps} />
+  </StateProvider>
+);
 
 export default MyApp;
