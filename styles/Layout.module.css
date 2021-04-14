@@ -6,13 +6,15 @@
   border-right: 0.1rem solid black;
 }
 
-.sidebar_Button > span {
+.sidebar_Button > button {
   position: fixed;
   z-index: 10;
   padding: 1rem;
   font-size: 3rem;
   cursor: pointer;
   text-align: center;
+  background-color: unset;
+  border: unset;
 }
 
 .sidebar {
