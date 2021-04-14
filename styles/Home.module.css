@@ -5,7 +5,7 @@
 }
 
 .container {
-  padding: 0 1rem;
+  padding: 0 0.5rem;
   background: linear-gradient(to top, #74ebd5, #acb6e5);
 }
 
@@ -17,29 +17,70 @@
   min-height: 100vh;
 }
 
+.ayah {
+  font-family: "me-quran";
+  font-weight: 200;
+}
+
 .bismillah {
   border-bottom: 1px solid black;
   display: grid;
   align-items: center;
 }
 
-.surah {
+.ayahContainer {
   margin: auto;
+  /* overflow-y: scroll; */
+}
+
+.ayahContainer > h2 {
+  font-size: 3rem;
+}
+
+.ayah_panel {
   display: grid;
-}
-
-.surahName {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.ayah {
-  font-family: "me-quran";
-  font-weight: 200;
-  font-size: 2rem;
-}
-
-.surah_description {
-  border-top: 1px solid black;
-  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 10fr 1fr;
   align-items: center;
+  height: 5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ayah_panel > button {
+  height: 100%;
+  cursor: pointer;
+  background-color: rgb(98, 100, 255);
+  color: white;
+  font-size: 2rem;
+  width: 100%;
+  padding: 1rem;
+  border: unset;
+  outline: none;
+}
+
+.ayah_panel > button:hover {
+  background-color: rgb(118, 120, 255);
+}
+
+.ayah_panel > button:active {
+  background-color: rgb(72, 75, 255);
+}
+
+.next_button {
+  border-radius: 0 50px 50px 0;
+}
+
+.previous_button {
+  border-radius: 50px 0 0 50px;
+}
+
+.ayah_description {
+  display: grid;
+  height: 100%;
+  background-color: rgb(147 255 153);
+}
+
+.ayah_description h3 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: auto;
 }

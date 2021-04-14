@@ -7,12 +7,10 @@
 }
 
 .sidebar_Button > button {
-  position: fixed;
-  z-index: 10;
+  position: absolute;
   padding: 1rem;
   font-size: 3rem;
   cursor: pointer;
-  text-align: center;
   background-color: unset;
   border: unset;
 }
