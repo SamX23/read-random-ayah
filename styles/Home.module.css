@@ -1,3 +1,5 @@
+/* Color Theme : #194350, #ff8882, #ffc2b4,#9dbeb9 */
+
 @font-face {
   font-family: "me-quran";
   src: local("me-quran"), url("../public/Assets/font/me_quran_volt_newmet.ttf");
@@ -6,7 +8,8 @@
 
 .container {
   padding: 0 0.5rem;
-  background: linear-gradient(to top, #74ebd5, #acb6e5);
+  background-color: #194350;
+  /* background: linear-gradient(to top, #74ebd5, #acb6e5); */
 }
 
 .main {
@@ -15,15 +18,16 @@
   align-content: stretch;
   text-align: center;
   min-height: 100vh;
+  color: #b7cfcc;
 }
 
 .ayah {
   font-family: "me-quran";
-  font-weight: 200;
+  font-weight: 100 !important;
 }
 
 .bismillah {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #9dbeb9;
   display: grid;
   align-items: center;
 }
@@ -49,8 +53,8 @@
 .ayah_panel > button {
   height: 100%;
   cursor: pointer;
-  background-color: rgb(98, 100, 255);
-  color: white;
+  background-color: #9dbeb9;
+  color: #194350;
   font-size: 2rem;
   width: 100%;
   padding: 1rem;
@@ -77,7 +81,8 @@
 .ayah_description {
   display: grid;
   height: 100%;
-  background-color: rgb(147 255 153);
+  background-color: #ffc2b4;
+  color: #194350;
 }
 
 .ayah_description h3 {
