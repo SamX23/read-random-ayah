@@ -22,6 +22,9 @@ const SurahLayout = ({ styles }) => {
 
   return (
     <>
+      <div className={styles.bismillah}>
+        <h1 className={styles.ayah}>بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</h1>
+      </div>
       {valid ? (
         <>
           <Ayah styles={styles} ayah={ayah} />
