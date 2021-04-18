@@ -13,38 +13,43 @@ const SurahLayout = ({ styles }) => {
   const { numberOfAyahs, ayahs } = valid && data;
   const maxAyah = valid && numberOfAyahs;
   const ayah = valid && ayahs[currentAyah];
-  const num = valid && data.number;
-  const [number, setNumber] = useState(1);
+
+  const dataNumber = valid && data.number;
+  const [numberSurah, setNumberSurah] = useState(1);
   const [translate, setTranslate] = useState({});
-  const source = valid && getTranslate(number, currentAyah);
+  const source = valid && getTranslate(numberSurah, currentAyah + 1);
+  const dataTranslate = translate.data;
 
   useEffect(() => {
     dispatch({
       type: "SET_AYAH",
       currentAyah: randomAyah(0, maxAyah),
     });
+  }, [dataSource]);
 
-    setNumber(num);
-
+  useEffect(() => {
+    let mounted = true;
+    setNumberSurah(dataNumber);
     fetch(source)
       .then((response) => response.json())
-      .then((res) => setTranslate(res));
-  }, [dataSource, source]);
+      .then((res) => mounted && setTranslate(res))
+      .catch((err) => console.log("Error : ", err));
+    return function cleanup() {
+      mounted = false;
+    };
+  }, [currentAyah, numberSurah]);
 
-  console.log(dataSource);
-  console.log(data);
-  console.log(currentAyah);
-  console.log(translate);
-  console.log(source);
+  // console.log(translate);
+  // console.log(source);
 
   return (
     <>
-      <div className={styles.bismillah}>
+      <div className={styles.bismillahContainer}>
         <h1 className={styles.ayah}>بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</h1>
       </div>
       {valid ? (
         <>
-          <Ayah styles={styles} ayah={ayah} />
+          <Ayah styles={styles} ayah={ayah} text={dataTranslate} />
           <AyahDescription
             styles={styles}
             data={data}
