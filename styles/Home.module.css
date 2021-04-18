@@ -35,18 +35,35 @@
   margin: auto;
 }
 
-.bismillah {
+.bismillahContainer {
   border-bottom: 1px solid #9dbeb9;
   align-items: center;
 }
 
 .ayahContainer {
+  position: relative;
   padding: 0 0.5rem;
   overflow: auto;
 }
 
 .ayahContainer > h2 {
   font-size: 3rem;
+  margin: auto;
+}
+
+.translate {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.translate > button {
+  width: 8rem;
+  height: 3rem;
+  background-color: #9dbeb9;
+  color: #194350;
+  border: unset;
+  cursor: pointer;
 }
 
 .ayah_panel {
