@@ -39,9 +39,6 @@ const SurahLayout = ({ styles }) => {
     };
   }, [currentAyah, numberSurah]);
 
-  // console.log(translate);
-  // console.log(source);
-
   return (
     <>
       <div className={styles.bismillahContainer}>
