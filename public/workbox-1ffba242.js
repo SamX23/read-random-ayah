@@ -1,7 +1,7 @@
-define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
+define("./workbox-1ffba242.js",['exports'], (function (exports) { 'use strict';
 
     try {
-      self['workbox:core:6.1.2'] && _();
+      self['workbox:core:6.2.4'] && _();
     } catch (e) {}
 
     /*
@@ -53,7 +53,8 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
         if (method === 'groupEnd') {
           inGroup = false;
         }
-      };
+      }; // eslint-disable-next-line @typescript-eslint/ban-types
+
 
       const api = {};
       const loggerMethods = Object.keys(methodToColorMap);
@@ -111,25 +112,28 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
           throw new Error(`Unexpected input to 'incorrect-type' error.`);
         }
 
-        return `The parameter '${paramName}' passed into ` + `'${moduleName}.${className ? className + '.' : ''}` + `${funcName}()' must be of type ${expectedType}.`;
+        const classNameStr = className ? `${className}.` : '';
+        return `The parameter '${paramName}' passed into ` + `'${moduleName}.${classNameStr}` + `${funcName}()' must be of type ${expectedType}.`;
       },
       'incorrect-class': ({
-        expectedClass,
+        expectedClassName,
         paramName,
         moduleName,
         className,
         funcName,
         isReturnValueProblem
       }) => {
-        if (!expectedClass || !moduleName || !funcName) {
+        if (!expectedClassName || !moduleName || !funcName) {
           throw new Error(`Unexpected input to 'incorrect-class' error.`);
         }
 
+        const classNameStr = className ? `${className}.` : '';
+
         if (isReturnValueProblem) {
-          return `The return value from ` + `'${moduleName}.${className ? className + '.' : ''}${funcName}()' ` + `must be an instance of class ${expectedClass.name}.`;
+          return `The return value from ` + `'${moduleName}.${classNameStr}${funcName}()' ` + `must be an instance of class ${expectedClassName}.`;
         }
 
-        return `The parameter '${paramName}' passed into ` + `'${moduleName}.${className ? className + '.' : ''}${funcName}()' ` + `must be an instance of class ${expectedClass.name}.`;
+        return `The parameter '${paramName}' passed into ` + `'${moduleName}.${classNameStr}${funcName}()' ` + `must be an instance of class ${expectedClassName}.`;
       },
       'missing-a-method': ({
         expectedMethod,
@@ -157,16 +161,16 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
           throw new Error(`Unexpected input to ` + `'add-to-cache-list-duplicate-entries' error.`);
         }
 
-        return `Two of the entries passed to ` + `'workbox-precaching.PrecacheController.addToCacheList()' had the URL ` + `${firstEntry._entryId} but different revision details. Workbox is ` + `unable to cache and version the asset correctly. Please remove one ` + `of the entries.`;
+        return `Two of the entries passed to ` + `'workbox-precaching.PrecacheController.addToCacheList()' had the URL ` + `${firstEntry} but different revision details. Workbox is ` + `unable to cache and version the asset correctly. Please remove one ` + `of the entries.`;
       },
       'plugin-error-request-will-fetch': ({
-        thrownError
+        thrownErrorMessage
       }) => {
-        if (!thrownError) {
+        if (!thrownErrorMessage) {
           throw new Error(`Unexpected input to ` + `'plugin-error-request-will-fetch', error.`);
         }
 
-        return `An error was thrown by a plugins 'requestWillFetch()' method. ` + `The thrown error message was: '${thrownError.message}'.`;
+        return `An error was thrown by a plugins 'requestWillFetch()' method. ` + `The thrown error message was: '${thrownErrorMessage}'.`;
       },
       'invalid-cache-name': ({
         cacheNameId,
@@ -438,9 +442,11 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
       }
     };
 
-    const isInstance = (object, expectedClass, details) => {
+    const isInstance = (object, // Need the general type to do the check later.
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    expectedClass, details) => {
       if (!(object instanceof expectedClass)) {
-        details['expectedClass'] = expectedClass;
+        details['expectedClassName'] = expectedClass.name;
         throw new WorkboxError('incorrect-class', details);
       }
     };
@@ -452,7 +458,9 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
       }
     };
 
-    const isArrayOfClass = (value, expectedClass, details) => {
+    const isArrayOfClass = (value, // Need general type to do check later.
+    expectedClass, // eslint-disable-line
+    details) => {
       const error = new WorkboxError('not-array-of-class', details);
 
       if (!Array.isArray(value)) {
@@ -476,7 +484,7 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
     };
 
     try {
-      self['workbox:routing:6.1.2'] && _();
+      self['workbox:routing:6.2.4'] && _();
     } catch (e) {}
 
     /*
@@ -673,7 +681,7 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
 
           if (url.origin !== location.origin && result.index !== 0) {
             {
-              logger.debug(`The regular expression '${regExp}' only partially matched ` + `against the cross-origin URL '${url}'. RegExpRoute's will only ` + `handle cross-origin requests if they match the entire URL.`);
+              logger.debug(`The regular expression '${regExp.toString()}' only partially matched ` + `against the cross-origin URL '${url.toString()}'. RegExpRoute's will only ` + `handle cross-origin requests if they match the entire URL.`);
             }
 
             return;
@@ -798,10 +806,12 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
       addCacheListener() {
         // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
         self.addEventListener('message', event => {
+          // event.data is type 'any'
           if (event.data && event.data.type === 'CACHE_URLS') {
+            // eslint-disable-line
             const {
               payload
-            } = event.data;
+            } = event.data; // eslint-disable-line
 
             {
               logger.debug(`Caching URLs from the window`, payload.urlsToCache);
@@ -824,7 +834,7 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
             event.waitUntil(requestPromises); // If a MessageChannel was used, reply to the message on success.
 
             if (event.ports && event.ports[0]) {
-              requestPromises.then(() => event.ports[0].postMessage(true));
+              void requestPromises.then(() => event.ports[0].postMessage(true));
             }
           }
         });
@@ -964,7 +974,9 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
                   params
                 });
               } catch (catchErr) {
-                err = catchErr;
+                if (catchErr instanceof Error) {
+                  err = catchErr;
+                }
               }
             }
 
@@ -998,6 +1010,8 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
        *
        * @param {Object} options
        * @param {URL} options.url
+       * @param {boolean} options.sameOrigin The result of comparing `url.origin`
+       *     against the current origin.
        * @param {Request} options.request The request to match.
        * @param {Event} options.event The corresponding event.
        * @return {Object} An object with `route` and `params` properties.
@@ -1015,7 +1029,9 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
         const routes = this._routes.get(request.method) || [];
 
         for (const route of routes) {
-          let params;
+          let params; // route.match returns type any, not possible to change right now.
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
           const matchResult = route.match({
             url,
             sameOrigin,
@@ -1026,19 +1042,21 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
           if (matchResult) {
             {
               // Warn developers that using an async matchCallback is almost always
-              // not the right thing to do. 
+              // not the right thing to do.
               if (matchResult instanceof Promise) {
                 logger.warn(`While routing ${getFriendlyURL(url)}, an async ` + `matchCallback function was used. Please convert the ` + `following route to use a synchronous matchCallback function:`, route);
               }
             } // See https://github.com/GoogleChrome/workbox/issues/2079
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 
 
             params = matchResult;
 
-            if (Array.isArray(matchResult) && matchResult.length === 0) {
+            if (Array.isArray(params) && params.length === 0) {
               // Instead of passing an empty array in as params, use undefined.
               params = undefined;
-            } else if (matchResult.constructor === Object && Object.keys(matchResult).length === 0) {
+            } else if (matchResult.constructor === Object && // eslint-disable-line
+            Object.keys(matchResult).length === 0) {
               // Instead of passing an empty object in as params, use undefined.
               params = undefined;
             } else if (typeof matchResult === 'boolean') {
@@ -1249,7 +1267,7 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
         }) => {
           {
             if (url.pathname === captureUrl.pathname && url.origin !== captureUrl.origin) {
-              logger.debug(`${capture} only partially matches the cross-origin URL ` + `${url}. This route will only handle cross-origin requests ` + `if they match the entire URL.`);
+              logger.debug(`${capture} only partially matches the cross-origin URL ` + `${url.toString()}. This route will only handle cross-origin requests ` + `if they match the entire URL.`);
             }
           }
 
@@ -1278,6 +1296,39 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
       defaultRouter.registerRoute(route);
       return route;
     }
+
+    try {
+      self['workbox:strategies:6.2.4'] && _();
+    } catch (e) {}
+
+    /*
+      Copyright 2018 Google LLC
+
+      Use of this source code is governed by an MIT-style
+      license that can be found in the LICENSE file or at
+      https://opensource.org/licenses/MIT.
+    */
+    const cacheOkAndOpaquePlugin = {
+      /**
+       * Returns a valid response (to allow caching) if the status is 200 (OK) or
+       * 0 (opaque).
+       *
+       * @param {Object} options
+       * @param {Response} options.response
+       * @return {Response|null}
+       *
+       * @private
+       */
+      cacheWillUpdate: async ({
+        response
+      }) => {
+        if (response.status === 200 || response.status === 0) {
+          return response;
+        }
+
+        return null;
+      }
+    };
 
     /*
       Copyright 2018 Google LLC
@@ -1330,1092 +1381,11 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
     };
 
     /*
-      Copyright 2019 Google LLC
+      Copyright 2020 Google LLC
       Use of this source code is governed by an MIT-style
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
-    /**
-     * A helper function that prevents a promise from being flagged as unused.
-     *
-     * @private
-     **/
-
-    function dontWaitFor(promise) {
-      // Effective no-op.
-      promise.then(() => {});
-    }
-
-    /*
-      Copyright 2018 Google LLC
-
-      Use of this source code is governed by an MIT-style
-      license that can be found in the LICENSE file or at
-      https://opensource.org/licenses/MIT.
-    */
-
-    const quotaErrorCallbacks = new Set();
-
-    /*
-      Copyright 2019 Google LLC
-
-      Use of this source code is governed by an MIT-style
-      license that can be found in the LICENSE file or at
-      https://opensource.org/licenses/MIT.
-    */
-    /**
-     * Adds a function to the set of quotaErrorCallbacks that will be executed if
-     * there's a quota error.
-     *
-     * @param {Function} callback
-     * @memberof module:workbox-core
-     */
-
-    function registerQuotaErrorCallback(callback) {
-      {
-        finalAssertExports.isType(callback, 'function', {
-          moduleName: 'workbox-core',
-          funcName: 'register',
-          paramName: 'callback'
-        });
-      }
-
-      quotaErrorCallbacks.add(callback);
-
-      {
-        logger.log('Registered a callback to respond to quota errors.', callback);
-      }
-    }
-
-    /*
-      Copyright 2018 Google LLC
-
-      Use of this source code is governed by an MIT-style
-      license that can be found in the LICENSE file or at
-      https://opensource.org/licenses/MIT.
-    */
-    /**
-     * A class that wraps common IndexedDB functionality in a promise-based API.
-     * It exposes all the underlying power and functionality of IndexedDB, but
-     * wraps the most commonly used features in a way that's much simpler to use.
-     *
-     * @private
-     */
-
-    class DBWrapper {
-      /**
-       * @param {string} name
-       * @param {number} version
-       * @param {Object=} [callback]
-       * @param {!Function} [callbacks.onupgradeneeded]
-       * @param {!Function} [callbacks.onversionchange] Defaults to
-       *     DBWrapper.prototype._onversionchange when not specified.
-       * @private
-       */
-      constructor(name, version, {
-        onupgradeneeded,
-        onversionchange
-      } = {}) {
-        this._db = null;
-        this._name = name;
-        this._version = version;
-        this._onupgradeneeded = onupgradeneeded;
-
-        this._onversionchange = onversionchange || (() => this.close());
-      }
-      /**
-       * Returns the IDBDatabase instance (not normally needed).
-       * @return {IDBDatabase|undefined}
-       *
-       * @private
-       */
-
-
-      get db() {
-        return this._db;
-      }
-      /**
-       * Opens a connected to an IDBDatabase, invokes any onupgradedneeded
-       * callback, and added an onversionchange callback to the database.
-       *
-       * @return {IDBDatabase}
-       * @private
-       */
-
-
-      async open() {
-        if (this._db) return;
-        this._db = await new Promise((resolve, reject) => {
-          // This flag is flipped to true if the timeout callback runs prior
-          // to the request failing or succeeding. Note: we use a timeout instead
-          // of an onblocked handler since there are cases where onblocked will
-          // never never run. A timeout better handles all possible scenarios:
-          // https://github.com/w3c/IndexedDB/issues/223
-          let openRequestTimedOut = false;
-          setTimeout(() => {
-            openRequestTimedOut = true;
-            reject(new Error('The open request was blocked and timed out'));
-          }, this.OPEN_TIMEOUT);
-          const openRequest = indexedDB.open(this._name, this._version);
-
-          openRequest.onerror = () => reject(openRequest.error);
-
-          openRequest.onupgradeneeded = evt => {
-            if (openRequestTimedOut) {
-              openRequest.transaction.abort();
-              openRequest.result.close();
-            } else if (typeof this._onupgradeneeded === 'function') {
-              this._onupgradeneeded(evt);
-            }
-          };
-
-          openRequest.onsuccess = () => {
-            const db = openRequest.result;
-
-            if (openRequestTimedOut) {
-              db.close();
-            } else {
-              db.onversionchange = this._onversionchange.bind(this);
-              resolve(db);
-            }
-          };
-        });
-        return this;
-      }
-      /**
-       * Polyfills the native `getKey()` method. Note, this is overridden at
-       * runtime if the browser supports the native method.
-       *
-       * @param {string} storeName
-       * @param {*} query
-       * @return {Array}
-       * @private
-       */
-
-
-      async getKey(storeName, query) {
-        return (await this.getAllKeys(storeName, query, 1))[0];
-      }
-      /**
-       * Polyfills the native `getAll()` method. Note, this is overridden at
-       * runtime if the browser supports the native method.
-       *
-       * @param {string} storeName
-       * @param {*} query
-       * @param {number} count
-       * @return {Array}
-       * @private
-       */
-
-
-      async getAll(storeName, query, count) {
-        return await this.getAllMatching(storeName, {
-          query,
-          count
-        });
-      }
-      /**
-       * Polyfills the native `getAllKeys()` method. Note, this is overridden at
-       * runtime if the browser supports the native method.
-       *
-       * @param {string} storeName
-       * @param {*} query
-       * @param {number} count
-       * @return {Array}
-       * @private
-       */
-
-
-      async getAllKeys(storeName, query, count) {
-        const entries = await this.getAllMatching(storeName, {
-          query,
-          count,
-          includeKeys: true
-        });
-        return entries.map(entry => entry.key);
-      }
-      /**
-       * Supports flexible lookup in an object store by specifying an index,
-       * query, direction, and count. This method returns an array of objects
-       * with the signature .
-       *
-       * @param {string} storeName
-       * @param {Object} [opts]
-       * @param {string} [opts.index] The index to use (if specified).
-       * @param {*} [opts.query]
-       * @param {IDBCursorDirection} [opts.direction]
-       * @param {number} [opts.count] The max number of results to return.
-       * @param {boolean} [opts.includeKeys] When true, the structure of the
-       *     returned objects is changed from an array of values to an array of
-       *     objects in the form {key, primaryKey, value}.
-       * @return {Array}
-       * @private
-       */
-
-
-      async getAllMatching(storeName, {
-        index,
-        query = null,
-        // IE/Edge errors if query === `undefined`.
-        direction = 'next',
-        count,
-        includeKeys = false
-      } = {}) {
-        return await this.transaction([storeName], 'readonly', (txn, done) => {
-          const store = txn.objectStore(storeName);
-          const target = index ? store.index(index) : store;
-          const results = [];
-          const request = target.openCursor(query, direction);
-
-          request.onsuccess = () => {
-            const cursor = request.result;
-
-            if (cursor) {
-              results.push(includeKeys ? cursor : cursor.value);
-
-              if (count && results.length >= count) {
-                done(results);
-              } else {
-                cursor.continue();
-              }
-            } else {
-              done(results);
-            }
-          };
-        });
-      }
-      /**
-       * Accepts a list of stores, a transaction type, and a callback and
-       * performs a transaction. A promise is returned that resolves to whatever
-       * value the callback chooses. The callback holds all the transaction logic
-       * and is invoked with two arguments:
-       *   1. The IDBTransaction object
-       *   2. A `done` function, that's used to resolve the promise when
-       *      when the transaction is done, if passed a value, the promise is
-       *      resolved to that value.
-       *
-       * @param {Array<string>} storeNames An array of object store names
-       *     involved in the transaction.
-       * @param {string} type Can be `readonly` or `readwrite`.
-       * @param {!Function} callback
-       * @return {*} The result of the transaction ran by the callback.
-       * @private
-       */
-
-
-      async transaction(storeNames, type, callback) {
-        await this.open();
-        return await new Promise((resolve, reject) => {
-          const txn = this._db.transaction(storeNames, type);
-
-          txn.onabort = () => reject(txn.error);
-
-          txn.oncomplete = () => resolve();
-
-          callback(txn, value => resolve(value));
-        });
-      }
-      /**
-       * Delegates async to a native IDBObjectStore method.
-       *
-       * @param {string} method The method name.
-       * @param {string} storeName The object store name.
-       * @param {string} type Can be `readonly` or `readwrite`.
-       * @param {...*} args The list of args to pass to the native method.
-       * @return {*} The result of the transaction.
-       * @private
-       */
-
-
-      async _call(method, storeName, type, ...args) {
-        const callback = (txn, done) => {
-          const objStore = txn.objectStore(storeName); // TODO(philipwalton): Fix this underlying TS2684 error.
-          // @ts-ignore
-
-          const request = objStore[method].apply(objStore, args);
-
-          request.onsuccess = () => done(request.result);
-        };
-
-        return await this.transaction([storeName], type, callback);
-      }
-      /**
-       * Closes the connection opened by `DBWrapper.open()`. Generally this method
-       * doesn't need to be called since:
-       *   1. It's usually better to keep a connection open since opening
-       *      a new connection is somewhat slow.
-       *   2. Connections are automatically closed when the reference is
-       *      garbage collected.
-       * The primary use case for needing to close a connection is when another
-       * reference (typically in another tab) needs to upgrade it and would be
-       * blocked by the current, open connection.
-       *
-       * @private
-       */
-
-
-      close() {
-        if (this._db) {
-          this._db.close();
-
-          this._db = null;
-        }
-      }
-
-    } // Exposed on the prototype to let users modify the default timeout on a
-    // per-instance or global basis.
-
-    DBWrapper.prototype.OPEN_TIMEOUT = 2000; // Wrap native IDBObjectStore methods according to their mode.
-
-    const methodsToWrap = {
-      readonly: ['get', 'count', 'getKey', 'getAll', 'getAllKeys'],
-      readwrite: ['add', 'put', 'clear', 'delete']
-    };
-
-    for (const [mode, methods] of Object.entries(methodsToWrap)) {
-      for (const method of methods) {
-        if (method in IDBObjectStore.prototype) {
-          // Don't use arrow functions here since we're outside of the class.
-          DBWrapper.prototype[method] = async function (storeName, ...args) {
-            return await this._call(method, storeName, mode, ...args);
-          };
-        }
-      }
-    }
-
-    /*
-      Copyright 2018 Google LLC
-
-      Use of this source code is governed by an MIT-style
-      license that can be found in the LICENSE file or at
-      https://opensource.org/licenses/MIT.
-    */
-    /**
-     * Deletes the database.
-     * Note: this is exported separately from the DBWrapper module because most
-     * usages of IndexedDB in workbox dont need deleting, and this way it can be
-     * reused in tests to delete databases without creating DBWrapper instances.
-     *
-     * @param {string} name The database name.
-     * @private
-     */
-
-    const deleteDatabase = async name => {
-      await new Promise((resolve, reject) => {
-        const request = indexedDB.deleteDatabase(name);
-
-        request.onerror = () => {
-          reject(request.error);
-        };
-
-        request.onblocked = () => {
-          reject(new Error('Delete blocked'));
-        };
-
-        request.onsuccess = () => {
-          resolve();
-        };
-      });
-    };
-
-    try {
-      self['workbox:expiration:6.1.2'] && _();
-    } catch (e) {}
-
-    /*
-      Copyright 2018 Google LLC
-
-      Use of this source code is governed by an MIT-style
-      license that can be found in the LICENSE file or at
-      https://opensource.org/licenses/MIT.
-    */
-    const DB_NAME = 'workbox-expiration';
-    const OBJECT_STORE_NAME = 'cache-entries';
-
-    const normalizeURL = unNormalizedUrl => {
-      const url = new URL(unNormalizedUrl, location.href);
-      url.hash = '';
-      return url.href;
-    };
-    /**
-     * Returns the timestamp model.
-     *
-     * @private
-     */
-
-
-    class CacheTimestampsModel {
-      /**
-       *
-       * @param {string} cacheName
-       *
-       * @private
-       */
-      constructor(cacheName) {
-        this._cacheName = cacheName;
-        this._db = new DBWrapper(DB_NAME, 1, {
-          onupgradeneeded: event => this._handleUpgrade(event)
-        });
-      }
-      /**
-       * Should perform an upgrade of indexedDB.
-       *
-       * @param {Event} event
-       *
-       * @private
-       */
-
-
-      _handleUpgrade(event) {
-        const db = event.target.result; // TODO(philipwalton): EdgeHTML doesn't support arrays as a keyPath, so we
-        // have to use the `id` keyPath here and create our own values (a
-        // concatenation of `url + cacheName`) instead of simply using
-        // `keyPath: ['url', 'cacheName']`, which is supported in other browsers.
-
-        const objStore = db.createObjectStore(OBJECT_STORE_NAME, {
-          keyPath: 'id'
-        }); // TODO(philipwalton): once we don't have to support EdgeHTML, we can
-        // create a single index with the keyPath `['cacheName', 'timestamp']`
-        // instead of doing both these indexes.
-
-        objStore.createIndex('cacheName', 'cacheName', {
-          unique: false
-        });
-        objStore.createIndex('timestamp', 'timestamp', {
-          unique: false
-        }); // Previous versions of `workbox-expiration` used `this._cacheName`
-        // as the IDBDatabase name.
-
-        deleteDatabase(this._cacheName);
-      }
-      /**
-       * @param {string} url
-       * @param {number} timestamp
-       *
-       * @private
-       */
-
-
-      async setTimestamp(url, timestamp) {
-        url = normalizeURL(url);
-        const entry = {
-          url,
-          timestamp,
-          cacheName: this._cacheName,
-          // Creating an ID from the URL and cache name won't be necessary once
-          // Edge switches to Chromium and all browsers we support work with
-          // array keyPaths.
-          id: this._getId(url)
-        };
-        await this._db.put(OBJECT_STORE_NAME, entry);
-      }
-      /**
-       * Returns the timestamp stored for a given URL.
-       *
-       * @param {string} url
-       * @return {number}
-       *
-       * @private
-       */
-
-
-      async getTimestamp(url) {
-        const entry = await this._db.get(OBJECT_STORE_NAME, this._getId(url));
-        return entry.timestamp;
-      }
-      /**
-       * Iterates through all the entries in the object store (from newest to
-       * oldest) and removes entries once either `maxCount` is reached or the
-       * entry's timestamp is less than `minTimestamp`.
-       *
-       * @param {number} minTimestamp
-       * @param {number} maxCount
-       * @return {Array<string>}
-       *
-       * @private
-       */
-
-
-      async expireEntries(minTimestamp, maxCount) {
-        const entriesToDelete = await this._db.transaction(OBJECT_STORE_NAME, 'readwrite', (txn, done) => {
-          const store = txn.objectStore(OBJECT_STORE_NAME);
-          const request = store.index('timestamp').openCursor(null, 'prev');
-          const entriesToDelete = [];
-          let entriesNotDeletedCount = 0;
-
-          request.onsuccess = () => {
-            const cursor = request.result;
-
-            if (cursor) {
-              const result = cursor.value; // TODO(philipwalton): once we can use a multi-key index, we
-              // won't have to check `cacheName` here.
-
-              if (result.cacheName === this._cacheName) {
-                // Delete an entry if it's older than the max age or
-                // if we already have the max number allowed.
-                if (minTimestamp && result.timestamp < minTimestamp || maxCount && entriesNotDeletedCount >= maxCount) {
-                  // TODO(philipwalton): we should be able to delete the
-                  // entry right here, but doing so causes an iteration
-                  // bug in Safari stable (fixed in TP). Instead we can
-                  // store the keys of the entries to delete, and then
-                  // delete the separate transactions.
-                  // https://github.com/GoogleChrome/workbox/issues/1978
-                  // cursor.delete();
-                  // We only need to return the URL, not the whole entry.
-                  entriesToDelete.push(cursor.value);
-                } else {
-                  entriesNotDeletedCount++;
-                }
-              }
-
-              cursor.continue();
-            } else {
-              done(entriesToDelete);
-            }
-          };
-        }); // TODO(philipwalton): once the Safari bug in the following issue is fixed,
-        // we should be able to remove this loop and do the entry deletion in the
-        // cursor loop above:
-        // https://github.com/GoogleChrome/workbox/issues/1978
-
-        const urlsDeleted = [];
-
-        for (const entry of entriesToDelete) {
-          await this._db.delete(OBJECT_STORE_NAME, entry.id);
-          urlsDeleted.push(entry.url);
-        }
-
-        return urlsDeleted;
-      }
-      /**
-       * Takes a URL and returns an ID that will be unique in the object store.
-       *
-       * @param {string} url
-       * @return {string}
-       *
-       * @private
-       */
-
-
-      _getId(url) {
-        // Creating an ID from the URL and cache name won't be necessary once
-        // Edge switches to Chromium and all browsers we support work with
-        // array keyPaths.
-        return this._cacheName + '|' + normalizeURL(url);
-      }
-
-    }
-
-    /*
-      Copyright 2018 Google LLC
-
-      Use of this source code is governed by an MIT-style
-      license that can be found in the LICENSE file or at
-      https://opensource.org/licenses/MIT.
-    */
-    /**
-     * The `CacheExpiration` class allows you define an expiration and / or
-     * limit on the number of responses stored in a
-     * [`Cache`](https://developer.mozilla.org/en-US/docs/Web/API/Cache).
-     *
-     * @memberof module:workbox-expiration
-     */
-
-    class CacheExpiration {
-      /**
-       * To construct a new CacheExpiration instance you must provide at least
-       * one of the `config` properties.
-       *
-       * @param {string} cacheName Name of the cache to apply restrictions to.
-       * @param {Object} config
-       * @param {number} [config.maxEntries] The maximum number of entries to cache.
-       * Entries used the least will be removed as the maximum is reached.
-       * @param {number} [config.maxAgeSeconds] The maximum age of an entry before
-       * it's treated as stale and removed.
-       * @param {Object} [config.matchOptions] The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)
-       * that will be used when calling `delete()` on the cache.
-       */
-      constructor(cacheName, config = {}) {
-        this._isRunning = false;
-        this._rerunRequested = false;
-
-        {
-          finalAssertExports.isType(cacheName, 'string', {
-            moduleName: 'workbox-expiration',
-            className: 'CacheExpiration',
-            funcName: 'constructor',
-            paramName: 'cacheName'
-          });
-
-          if (!(config.maxEntries || config.maxAgeSeconds)) {
-            throw new WorkboxError('max-entries-or-age-required', {
-              moduleName: 'workbox-expiration',
-              className: 'CacheExpiration',
-              funcName: 'constructor'
-            });
-          }
-
-          if (config.maxEntries) {
-            finalAssertExports.isType(config.maxEntries, 'number', {
-              moduleName: 'workbox-expiration',
-              className: 'CacheExpiration',
-              funcName: 'constructor',
-              paramName: 'config.maxEntries'
-            });
-          }
-
-          if (config.maxAgeSeconds) {
-            finalAssertExports.isType(config.maxAgeSeconds, 'number', {
-              moduleName: 'workbox-expiration',
-              className: 'CacheExpiration',
-              funcName: 'constructor',
-              paramName: 'config.maxAgeSeconds'
-            });
-          }
-        }
-
-        this._maxEntries = config.maxEntries;
-        this._maxAgeSeconds = config.maxAgeSeconds;
-        this._matchOptions = config.matchOptions;
-        this._cacheName = cacheName;
-        this._timestampModel = new CacheTimestampsModel(cacheName);
-      }
-      /**
-       * Expires entries for the given cache and given criteria.
-       */
-
-
-      async expireEntries() {
-        if (this._isRunning) {
-          this._rerunRequested = true;
-          return;
-        }
-
-        this._isRunning = true;
-        const minTimestamp = this._maxAgeSeconds ? Date.now() - this._maxAgeSeconds * 1000 : 0;
-        const urlsExpired = await this._timestampModel.expireEntries(minTimestamp, this._maxEntries); // Delete URLs from the cache
-
-        const cache = await self.caches.open(this._cacheName);
-
-        for (const url of urlsExpired) {
-          await cache.delete(url, this._matchOptions);
-        }
-
-        {
-          if (urlsExpired.length > 0) {
-            logger.groupCollapsed(`Expired ${urlsExpired.length} ` + `${urlsExpired.length === 1 ? 'entry' : 'entries'} and removed ` + `${urlsExpired.length === 1 ? 'it' : 'them'} from the ` + `'${this._cacheName}' cache.`);
-            logger.log(`Expired the following ${urlsExpired.length === 1 ? 'URL' : 'URLs'}:`);
-            urlsExpired.forEach(url => logger.log(`    ${url}`));
-            logger.groupEnd();
-          } else {
-            logger.debug(`Cache expiration ran and found no entries to remove.`);
-          }
-        }
-
-        this._isRunning = false;
-
-        if (this._rerunRequested) {
-          this._rerunRequested = false;
-          dontWaitFor(this.expireEntries());
-        }
-      }
-      /**
-       * Update the timestamp for the given URL. This ensures the when
-       * removing entries based on maximum entries, most recently used
-       * is accurate or when expiring, the timestamp is up-to-date.
-       *
-       * @param {string} url
-       */
-
-
-      async updateTimestamp(url) {
-        {
-          finalAssertExports.isType(url, 'string', {
-            moduleName: 'workbox-expiration',
-            className: 'CacheExpiration',
-            funcName: 'updateTimestamp',
-            paramName: 'url'
-          });
-        }
-
-        await this._timestampModel.setTimestamp(url, Date.now());
-      }
-      /**
-       * Can be used to check if a URL has expired or not before it's used.
-       *
-       * This requires a look up from IndexedDB, so can be slow.
-       *
-       * Note: This method will not remove the cached entry, call
-       * `expireEntries()` to remove indexedDB and Cache entries.
-       *
-       * @param {string} url
-       * @return {boolean}
-       */
-
-
-      async isURLExpired(url) {
-        if (!this._maxAgeSeconds) {
-          {
-            throw new WorkboxError(`expired-test-without-max-age`, {
-              methodName: 'isURLExpired',
-              paramName: 'maxAgeSeconds'
-            });
-          }
-        } else {
-          const timestamp = await this._timestampModel.getTimestamp(url);
-          const expireOlderThan = Date.now() - this._maxAgeSeconds * 1000;
-          return timestamp < expireOlderThan;
-        }
-      }
-      /**
-       * Removes the IndexedDB object store used to keep track of cache expiration
-       * metadata.
-       */
-
-
-      async delete() {
-        // Make sure we don't attempt another rerun if we're called in the middle of
-        // a cache expiration.
-        this._rerunRequested = false;
-        await this._timestampModel.expireEntries(Infinity); // Expires all.
-      }
-
-    }
-
-    /*
-      Copyright 2018 Google LLC
-
-      Use of this source code is governed by an MIT-style
-      license that can be found in the LICENSE file or at
-      https://opensource.org/licenses/MIT.
-    */
-    /**
-     * This plugin can be used in a `workbox-strategy` to regularly enforce a
-     * limit on the age and / or the number of cached requests.
-     *
-     * It can only be used with `workbox-strategy` instances that have a
-     * [custom `cacheName` property set](/web/tools/workbox/guides/configure-workbox#custom_cache_names_in_strategies).
-     * In other words, it can't be used to expire entries in strategy that uses the
-     * default runtime cache name.
-     *
-     * Whenever a cached request is used or updated, this plugin will look
-     * at the associated cache and remove any old or extra requests.
-     *
-     * When using `maxAgeSeconds`, requests may be used *once* after expiring
-     * because the expiration clean up will not have occurred until *after* the
-     * cached request has been used. If the request has a "Date" header, then
-     * a light weight expiration check is performed and the request will not be
-     * used immediately.
-     *
-     * When using `maxEntries`, the entry least-recently requested will be removed
-     * from the cache first.
-     *
-     * @memberof module:workbox-expiration
-     */
-
-    class ExpirationPlugin {
-      /**
-       * @param {Object} config
-       * @param {number} [config.maxEntries] The maximum number of entries to cache.
-       * Entries used the least will be removed as the maximum is reached.
-       * @param {number} [config.maxAgeSeconds] The maximum age of an entry before
-       * it's treated as stale and removed.
-       * @param {Object} [config.matchOptions] The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)
-       * that will be used when calling `delete()` on the cache.
-       * @param {boolean} [config.purgeOnQuotaError] Whether to opt this cache in to
-       * automatic deletion if the available storage quota has been exceeded.
-       */
-      constructor(config = {}) {
-        /**
-         * A "lifecycle" callback that will be triggered automatically by the
-         * `workbox-strategies` handlers when a `Response` is about to be returned
-         * from a [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) to
-         * the handler. It allows the `Response` to be inspected for freshness and
-         * prevents it from being used if the `Response`'s `Date` header value is
-         * older than the configured `maxAgeSeconds`.
-         *
-         * @param {Object} options
-         * @param {string} options.cacheName Name of the cache the response is in.
-         * @param {Response} options.cachedResponse The `Response` object that's been
-         *     read from a cache and whose freshness should be checked.
-         * @return {Response} Either the `cachedResponse`, if it's
-         *     fresh, or `null` if the `Response` is older than `maxAgeSeconds`.
-         *
-         * @private
-         */
-        this.cachedResponseWillBeUsed = async ({
-          event,
-          request,
-          cacheName,
-          cachedResponse
-        }) => {
-          if (!cachedResponse) {
-            return null;
-          }
-
-          const isFresh = this._isResponseDateFresh(cachedResponse); // Expire entries to ensure that even if the expiration date has
-          // expired, it'll only be used once.
-
-
-          const cacheExpiration = this._getCacheExpiration(cacheName);
-
-          dontWaitFor(cacheExpiration.expireEntries()); // Update the metadata for the request URL to the current timestamp,
-          // but don't `await` it as we don't want to block the response.
-
-          const updateTimestampDone = cacheExpiration.updateTimestamp(request.url);
-
-          if (event) {
-            try {
-              event.waitUntil(updateTimestampDone);
-            } catch (error) {
-              {
-                // The event may not be a fetch event; only log the URL if it is.
-                if ('request' in event) {
-                  logger.warn(`Unable to ensure service worker stays alive when ` + `updating cache entry for ` + `'${getFriendlyURL(event.request.url)}'.`);
-                }
-              }
-            }
-          }
-
-          return isFresh ? cachedResponse : null;
-        };
-        /**
-         * A "lifecycle" callback that will be triggered automatically by the
-         * `workbox-strategies` handlers when an entry is added to a cache.
-         *
-         * @param {Object} options
-         * @param {string} options.cacheName Name of the cache that was updated.
-         * @param {string} options.request The Request for the cached entry.
-         *
-         * @private
-         */
-
-
-        this.cacheDidUpdate = async ({
-          cacheName,
-          request
-        }) => {
-          {
-            finalAssertExports.isType(cacheName, 'string', {
-              moduleName: 'workbox-expiration',
-              className: 'Plugin',
-              funcName: 'cacheDidUpdate',
-              paramName: 'cacheName'
-            });
-            finalAssertExports.isInstance(request, Request, {
-              moduleName: 'workbox-expiration',
-              className: 'Plugin',
-              funcName: 'cacheDidUpdate',
-              paramName: 'request'
-            });
-          }
-
-          const cacheExpiration = this._getCacheExpiration(cacheName);
-
-          await cacheExpiration.updateTimestamp(request.url);
-          await cacheExpiration.expireEntries();
-        };
-
-        {
-          if (!(config.maxEntries || config.maxAgeSeconds)) {
-            throw new WorkboxError('max-entries-or-age-required', {
-              moduleName: 'workbox-expiration',
-              className: 'Plugin',
-              funcName: 'constructor'
-            });
-          }
-
-          if (config.maxEntries) {
-            finalAssertExports.isType(config.maxEntries, 'number', {
-              moduleName: 'workbox-expiration',
-              className: 'Plugin',
-              funcName: 'constructor',
-              paramName: 'config.maxEntries'
-            });
-          }
-
-          if (config.maxAgeSeconds) {
-            finalAssertExports.isType(config.maxAgeSeconds, 'number', {
-              moduleName: 'workbox-expiration',
-              className: 'Plugin',
-              funcName: 'constructor',
-              paramName: 'config.maxAgeSeconds'
-            });
-          }
-        }
-
-        this._config = config;
-        this._maxAgeSeconds = config.maxAgeSeconds;
-        this._cacheExpirations = new Map();
-
-        if (config.purgeOnQuotaError) {
-          registerQuotaErrorCallback(() => this.deleteCacheAndMetadata());
-        }
-      }
-      /**
-       * A simple helper method to return a CacheExpiration instance for a given
-       * cache name.
-       *
-       * @param {string} cacheName
-       * @return {CacheExpiration}
-       *
-       * @private
-       */
-
-
-      _getCacheExpiration(cacheName) {
-        if (cacheName === cacheNames.getRuntimeName()) {
-          throw new WorkboxError('expire-custom-caches-only');
-        }
-
-        let cacheExpiration = this._cacheExpirations.get(cacheName);
-
-        if (!cacheExpiration) {
-          cacheExpiration = new CacheExpiration(cacheName, this._config);
-
-          this._cacheExpirations.set(cacheName, cacheExpiration);
-        }
-
-        return cacheExpiration;
-      }
-      /**
-       * @param {Response} cachedResponse
-       * @return {boolean}
-       *
-       * @private
-       */
-
-
-      _isResponseDateFresh(cachedResponse) {
-        if (!this._maxAgeSeconds) {
-          // We aren't expiring by age, so return true, it's fresh
-          return true;
-        } // Check if the 'date' header will suffice a quick expiration check.
-        // See https://github.com/GoogleChromeLabs/sw-toolbox/issues/164 for
-        // discussion.
-
-
-        const dateHeaderTimestamp = this._getDateHeaderTimestamp(cachedResponse);
-
-        if (dateHeaderTimestamp === null) {
-          // Unable to parse date, so assume it's fresh.
-          return true;
-        } // If we have a valid headerTime, then our response is fresh iff the
-        // headerTime plus maxAgeSeconds is greater than the current time.
-
-
-        const now = Date.now();
-        return dateHeaderTimestamp >= now - this._maxAgeSeconds * 1000;
-      }
-      /**
-       * This method will extract the data header and parse it into a useful
-       * value.
-       *
-       * @param {Response} cachedResponse
-       * @return {number|null}
-       *
-       * @private
-       */
-
-
-      _getDateHeaderTimestamp(cachedResponse) {
-        if (!cachedResponse.headers.has('date')) {
-          return null;
-        }
-
-        const dateHeader = cachedResponse.headers.get('date');
-        const parsedDate = new Date(dateHeader);
-        const headerTime = parsedDate.getTime(); // If the Date header was invalid for some reason, parsedDate.getTime()
-        // will return NaN.
-
-        if (isNaN(headerTime)) {
-          return null;
-        }
-
-        return headerTime;
-      }
-      /**
-       * This is a helper method that performs two operations:
-       *
-       * - Deletes *all* the underlying Cache instances associated with this plugin
-       * instance, by calling caches.delete() on your behalf.
-       * - Deletes the metadata from IndexedDB used to keep track of expiration
-       * details for each Cache instance.
-       *
-       * When using cache expiration, calling this method is preferable to calling
-       * `caches.delete()` directly, since this will ensure that the IndexedDB
-       * metadata is also cleanly removed and open IndexedDB instances are deleted.
-       *
-       * Note that if you're *not* using cache expiration for a given cache, calling
-       * `caches.delete()` and passing in the cache's name should be sufficient.
-       * There is no Workbox-specific method needed for cleanup in that case.
-       */
-
-
-      async deleteCacheAndMetadata() {
-        // Do this one at a time instead of all at once via `Promise.all()` to
-        // reduce the chance of inconsistency if a promise rejects.
-        for (const [cacheName, cacheExpiration] of this._cacheExpirations) {
-          await self.caches.delete(cacheName);
-          await cacheExpiration.delete();
-        } // Reset this._cacheExpirations to its initial state.
-
-
-        this._cacheExpirations = new Map();
-      }
-
-    }
-
-    try {
-      self['workbox:strategies:6.1.2'] && _();
-    } catch (e) {}
-
-    /*
-      Copyright 2018 Google LLC
-
-      Use of this source code is governed by an MIT-style
-      license that can be found in the LICENSE file or at
-      https://opensource.org/licenses/MIT.
-    */
-    const cacheOkAndOpaquePlugin = {
-      /**
-       * Returns a valid response (to allow caching) if the status is 200 (OK) or
-       * 0 (opaque).
-       *
-       * @param {Object} options
-       * @param {Response} options.response
-       * @return {Response|null}
-       *
-       * @private
-       */
-      cacheWillUpdate: async ({
-        response
-      }) => {
-        if (response.status === 200 || response.status === 0) {
-          return response;
-        }
-
-        return null;
-      }
-    };
-
-    function _extends() {
-      _extends = Object.assign || function (target) {
-        for (var i = 1; i < arguments.length; i++) {
-          var source = arguments[i];
-
-          for (var key in source) {
-            if (Object.prototype.hasOwnProperty.call(source, key)) {
-              target[key] = source[key];
-            }
-          }
-        }
-
-        return target;
-      };
-
-      return _extends.apply(this, arguments);
-    }
 
     function stripParams(fullURL, ignoreParams) {
       const strippedURL = new URL(fullURL);
@@ -2448,10 +1418,9 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
       } // Otherwise, match by comparing keys
 
 
-      const keysOptions = _extends({}, matchOptions, {
+      const keysOptions = Object.assign(Object.assign({}, matchOptions), {
         ignoreSearch: true
       });
-
       const cacheKeys = await cache.keys(request, keysOptions);
 
       for (const cacheKey of cacheKeys) {
@@ -2493,6 +1462,18 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
       }
 
     }
+
+    /*
+      Copyright 2018 Google LLC
+
+      Use of this source code is governed by an MIT-style
+      license that can be found in the LICENSE file or at
+      https://opensource.org/licenses/MIT.
+    */
+    // Can't change Function type right now.
+    // eslint-disable-next-line @typescript-eslint/ban-types
+
+    const quotaErrorCallbacks = new Set();
 
     /*
       Copyright 2018 Google LLC
@@ -2545,6 +1526,14 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
     function timeout(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
+
+    /*
+      Copyright 2020 Google LLC
+
+      Use of this source code is governed by an MIT-style
+      license that can be found in the LICENSE file or at
+      https://opensource.org/licenses/MIT.
+    */
 
     function toRequest(input) {
       return typeof input === 'string' ? new Request(input) : input;
@@ -2692,9 +1681,11 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
             });
           }
         } catch (err) {
-          throw new WorkboxError('plugin-error-request-will-fetch', {
-            thrownError: err
-          });
+          if (err instanceof Error) {
+            throw new WorkboxError('plugin-error-request-will-fetch', {
+              thrownErrorMessage: err.message
+            });
+          }
         } // The request can be altered by plugins with `requestWillFetch` making
         // the original request (most likely from a `fetch` event) different
         // from the Request we make. Pass both to `fetchDidFail` to aid debugging.
@@ -2729,7 +1720,7 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
 
           if (originalRequest) {
             await this.runCallbacks('fetchDidFail', {
-              error,
+              error: error,
               event,
               originalRequest: originalRequest.clone(),
               request: pluginFilteredRequest.clone()
@@ -2754,7 +1745,7 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
       async fetchAndCachePut(input) {
         const response = await this.fetch(input);
         const responseClone = response.clone();
-        this.waitUntil(this.cachePut(input, responseClone));
+        void this.waitUntil(this.cachePut(input, responseClone));
         return response;
       }
       /**
@@ -2779,11 +1770,9 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
           matchOptions
         } = this._strategy;
         const effectiveRequest = await this.getCacheKey(request, 'read');
-
-        const multiMatchOptions = _extends({}, matchOptions, {
+        const multiMatchOptions = Object.assign(Object.assign({}, matchOptions), {
           cacheName
         });
-
         cachedResponse = await caches.match(effectiveRequest, multiMatchOptions);
 
         {
@@ -2836,6 +1825,13 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
               url: getFriendlyURL(effectiveRequest.url),
               method: effectiveRequest.method
             });
+          } // See https://github.com/GoogleChrome/workbox/issues/2818
+
+
+          const vary = response.headers.get('Vary');
+
+          if (vary) {
+            logger.debug(`The response for ${getFriendlyURL(effectiveRequest.url)} ` + `has a 'Vary: ${vary}' header. ` + `Consider setting the {ignoreVary: true} option on your strategy ` + `to ensure cache matching and deletion works as expected.`);
           }
         }
 
@@ -2877,12 +1873,14 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
         try {
           await cache.put(effectiveRequest, hasCacheUpdateCallback ? responseToCache.clone() : responseToCache);
         } catch (error) {
-          // See https://developer.mozilla.org/en-US/docs/Web/API/DOMException#exception-QuotaExceededError
-          if (error.name === 'QuotaExceededError') {
-            await executeQuotaErrorCallbacks();
-          }
+          if (error instanceof Error) {
+            // See https://developer.mozilla.org/en-US/docs/Web/API/DOMException#exception-QuotaExceededError
+            if (error.name === 'QuotaExceededError') {
+              await executeQuotaErrorCallbacks();
+            }
 
-          throw error;
+            throw error;
+          }
         }
 
         for (const callback of this.iterateCallbacks('cacheDidUpdate')) {
@@ -2919,6 +1917,7 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
               mode,
               request: effectiveRequest,
               event: this.event,
+              // params has a type any can't change right now.
               params: this.params
             }));
           }
@@ -2988,11 +1987,10 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
             const state = this._pluginStateMap.get(plugin);
 
             const statefulCallback = param => {
-              const statefulParam = _extends({}, param, {
+              const statefulParam = Object.assign(Object.assign({}, param), {
                 state
               }); // TODO(philipwalton): not sure why `any` is needed. It seems like
               // this should work with `as WorkboxPluginCallbackParam[C]`.
-
 
               return plugin[name](statefulParam);
             };
@@ -3047,7 +2045,7 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
 
 
       destroy() {
-        this._handlerDeferred.resolve();
+        this._handlerDeferred.resolve(null);
       }
       /**
        * This method will call cacheWillUpdate on the available plugins (or use
@@ -3267,22 +2265,24 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
             });
           }
         } catch (error) {
-          for (const callback of handler.iterateCallbacks('handlerDidError')) {
-            response = await callback({
-              error,
-              event,
-              request
-            });
+          if (error instanceof Error) {
+            for (const callback of handler.iterateCallbacks('handlerDidError')) {
+              response = await callback({
+                error,
+                event,
+                request
+              });
 
-            if (response) {
-              break;
+              if (response) {
+                break;
+              }
             }
           }
 
           if (!response) {
             throw error;
           } else {
-            logger.log(`While responding to '${getFriendlyURL(request.url)}', ` + `an ${error} error occurred. Using a fallback response provided by ` + `a handlerDidError plugin.`);
+            logger.log(`While responding to '${getFriendlyURL(request.url)}', ` + `an ${error instanceof Error ? error.toString() : ''} error occurred. Using a fallback response provided by ` + `a handlerDidError plugin.`);
           }
         }
 
@@ -3316,14 +2316,16 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
           });
           await handler.doneWaiting();
         } catch (waitUntilError) {
-          error = waitUntilError;
+          if (waitUntilError instanceof Error) {
+            error = waitUntilError;
+          }
         }
 
         await handler.runCallbacks('handlerDidComplete', {
           event,
           request,
           response,
-          error
+          error: error
         });
         handler.destroy();
 
@@ -3566,7 +2568,9 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
         try {
           response = await handler.fetchAndCachePut(request);
         } catch (fetchError) {
-          error = fetchError;
+          if (fetchError instanceof Error) {
+            error = fetchError;
+          }
         }
 
         if (timeoutId) {
@@ -3671,7 +2675,9 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
             throw new Error(`Timed out the network response after ` + `${this._networkTimeoutSeconds} seconds.`);
           }
         } catch (err) {
-          error = err;
+          if (err instanceof Error) {
+            error = err;
+          }
         }
 
         {
@@ -3717,11 +2723,10 @@ define("./workbox-36aad3af.js",['exports'], function (exports) { 'use strict';
       self.addEventListener('activate', () => self.clients.claim());
     }
 
-    exports.ExpirationPlugin = ExpirationPlugin;
     exports.NetworkFirst = NetworkFirst;
     exports.NetworkOnly = NetworkOnly;
     exports.clientsClaim = clientsClaim;
     exports.registerRoute = registerRoute;
 
-});
-//# sourceMappingURL=workbox-36aad3af.js.map
+}));
+//# sourceMappingURL=workbox-1ffba242.js.map

@@ -7,10 +7,11 @@
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
 
 .container {
   padding: 0 0.5rem;
-  background-color: #194350;
+  background-color: #204017;
 }
 
 .main {
@@ -20,7 +21,7 @@
   row-gap: 1rem;
   align-content: stretch;
   text-align: center;
-  color: #b7cfcc;
+  color: #fee56b;
 }
 
 .main > div {
@@ -38,7 +39,7 @@
 }
 
 .bismillahContainer {
-  border-bottom: 1px solid #9dbeb9;
+  border-bottom: 1px solid #ededd5;
   align-items: center;
 }
 
@@ -66,11 +67,22 @@
 .swapButton > button {
   width: 8rem;
   height: 3rem;
-  background-color: #9dbeb9;
-  color: #194350;
+  background-color: #4e6a46;
+  color: #dadfe1;
   border: unset;
-  border-radius: 1em;
+  border-radius: 2em;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.swapButton > button:hover {
+  background-color: #c0c8a0;
+  color: #4e5c4a;
+  transition: 0.3s;
+}
+
+.swapButton > button:active {
+  background-color: #fee56b;
 }
 
 .ayah_panel {
@@ -81,21 +93,25 @@
 .ayah_panel > button {
   height: 100%;
   cursor: pointer;
-  background-color: #9dbeb9;
-  color: #194350;
+  background-color: #c0c8a0;
+  color: #4e5c4a;
   font-size: 2rem;
   width: 100%;
   padding: 1rem;
-  border: unset;
+  border: 2px 2px;
+  border-color: #fee56b;
   outline: none;
+  transition: 0.3s;
 }
 
 .ayah_panel > button:hover {
-  background-color: rgb(118, 120, 255);
+  background-color: #4e6a46;
+  color: #fee56b;
+  transition: 0.3s;
 }
 
 .ayah_panel > button:active {
-  background-color: rgb(72, 75, 255);
+  background-color: #172e11;
 }
 
 .next_button {
@@ -108,9 +124,9 @@
 
 .ayah_description {
   display: grid;
-  height: 100%;
-  background-color: #ffc2b4;
-  color: #194350;
+  height: 94%;
+  background-color: #ededd5;
+  color: #4e5c4a;
 }
 
 .ayah_description h3 {

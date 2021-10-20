@@ -22,5 +22,17 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0"
-  }
+  },
+  "description": "I develop this simple app to generate random ayah when opened. My achievement is to create it as simple as possible.",
+  "main": "next.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/donnihusnan/read-random-ayah.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/donnihusnan/read-random-ayah/issues"
+  },
+  "homepage": "https://github.com/donnihusnan/read-random-ayah#readme"
 }
