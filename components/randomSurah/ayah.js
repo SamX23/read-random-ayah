@@ -11,7 +11,7 @@ const Ayah = ({ styles, ayah, text }) => {
         <h2 className={styles.translate}>{text.translation.id}</h2>
       )}
       <div className={styles.mode}>
-        <button type="button">Ω</button>
+        <button type="button">🌗</button>
       </div>
       <div className={styles.swapButton}>
         <button type="button" onClick={() => showText(!showAyah)}>
