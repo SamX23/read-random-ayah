@@ -42,7 +42,9 @@ const SurahLayout = ({ styles }) => {
   return (
     <>
       <div className={styles.bismillahContainer}>
-        <h1 className={styles.ayah}>بِسْمِ ٱللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</h1>
+        <h1 className={styles.ayah}>
+          أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ
+        </h1>
       </div>
       {valid ? (
         <>

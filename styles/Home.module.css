@@ -138,3 +138,37 @@
   font-size: large;
   margin: auto;
 }
+
+@media screen and (max-width: 991px) {
+  /* start of large tablet styles */
+}
+
+@media screen and (max-width: 767px) {
+  .ayahContainer {
+    position: relative;
+    padding: 4em 1em 2em 1em;
+    overflow: auto;
+  }
+
+  .ayahContainer > h2 {
+    font-size: 2.5rem;
+    margin: auto;
+  }
+
+  /* start of medium tablet styles */
+}
+
+@media screen and (max-width: 479px) {
+  .ayahContainer {
+    position: relative;
+    padding: 4em 1em 1em 1em;
+    overflow: auto;
+  }
+
+  .ayahContainer > h2 {
+    font-size: 2em;
+    margin: auto;
+  }
+
+  /* start of phone styles */
+}
