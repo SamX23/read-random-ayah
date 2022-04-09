@@ -5,14 +5,16 @@
   src: local("me-quran"), url("../public/Assets/font/me_quran_volt_newmet.ttf");
   font-display: swap;
 }
-
 @import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@500&display=swap");
 
 .container {
   padding: 0 0.5rem;
-  background-color: #204017;
+  background-color: #e8e2d1;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .main {
@@ -22,7 +24,7 @@
   row-gap: 1rem;
   align-content: stretch;
   text-align: center;
-  color: #fee56b;
+  color: #2b2b2a;
 }
 
 .main > div {
@@ -35,18 +37,18 @@
 
 .ayah {
   font-family: "me-quran";
-  font-weight: 100 !important;
+  font-weight: 200 !important;
   margin: auto;
 }
 
 .bismillahContainer {
-  border-bottom: 1px solid #ededd5;
+  border-bottom: 1px solid #2b2b2a;
   align-items: center;
 }
 
 .ayahContainer {
   position: relative;
-  padding: 0 0.5rem;
+  padding: 4em 0;
   overflow: auto;
 }
 
@@ -55,8 +57,40 @@
   margin: auto;
 }
 
+.mode {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.mode > button {
+  font-family: "Arima Madurai", cursive;
+  font-weight: 900;
+  width: 8rem;
+  height: 3rem;
+  background-color: #eeeeee;
+  color: #4e5c4a;
+  border: unset;
+  border-radius: 2em;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.mode > button:hover {
+  background-color: #2a6e18;
+  color: #dadfe1;
+  transition: 0.3s;
+}
+
+.mode > button:active {
+  background-color: #eeeeee;
+  color: #4e5c4a;
+  transition: 0.3s;
+}
+
 .translate {
-  font-family: "Caveat", cursive;
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
 }
 
 .swapButton {
@@ -66,11 +100,11 @@
 }
 
 .swapButton > button {
-  font-family: "Zen Kurenaido", sans-serif;
+  font-family: "Arima Madurai", cursive;
   font-weight: 900;
   width: 8rem;
   height: 3rem;
-  background-color: #4e6a46;
+  background-color: #8bb3c4;
   color: #dadfe1;
   border: unset;
   border-radius: 2em;
@@ -79,13 +113,9 @@
 }
 
 .swapButton > button:hover {
-  background-color: #c0c8a0;
-  color: #4e5c4a;
+  background-color: #eeeeee;
+  color: #8bb3c4;
   transition: 0.3s;
-}
-
-.swapButton > button:active {
-  background-color: #fee56b;
 }
 
 .ayah_panel {
@@ -96,46 +126,45 @@
 .ayah_panel > button {
   height: 100%;
   cursor: pointer;
-  background-color: #c0c8a0;
-  color: #4e5c4a;
+  background-color: #b6b6b6;
+  color: #eeeeee;
   font-size: 2rem;
   width: 100%;
   padding: 1rem;
   border: 2px 2px;
-  border-color: #fee56b;
+  border-color: #2b2b2a;
   outline: none;
   transition: 0.3s;
 }
 
 .ayah_panel > button:hover {
-  background-color: #4e6a46;
-  color: #fee56b;
+  background-color: #eeeeee;
+  color: #a2a2a2;
   transition: 0.3s;
-}
-
-.ayah_panel > button:active {
-  background-color: #172e11;
 }
 
 .next_button {
   border-radius: 0 50px 50px 0;
+  opacity: 0.8;
 }
 
 .previous_button {
   border-radius: 50px 0 0 50px;
+  opacity: 0.8;
 }
 
 .ayah_description {
   display: grid;
   height: 94%;
-  background-color: #ededd5;
-  color: #4e5c4a;
+  background-color: #eeeeee;
+  color: #2b2b2a;
 }
 
 .ayah_description h3 {
-  font-family: "Zen Kurenaido", sans-serif, "Segoe UI", Tahoma, Geneva, Verdana,
+  font-family: "Arima Madurai", cursive, "Segoe UI", Tahoma, Geneva, Verdana,
     sans-serif;
-  font-size: large;
+  font-size: 1.5em;
+  font-weight: 200;
   margin: auto;
 }
 
