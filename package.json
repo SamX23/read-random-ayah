@@ -1,6 +1,6 @@
 {
   "name": "quran-randomizer",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -27,12 +27,12 @@
   "main": "next.config.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/donnihusnan/read-random-ayah.git"
+    "url": "git+https://github.com/SamX23/read-random-ayah.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/donnihusnan/read-random-ayah/issues"
+    "url": "https://github.com/SamX23/read-random-ayah/issues"
   },
-  "homepage": "https://github.com/donnihusnan/read-random-ayah#readme"
+  "homepage": "https://github.com/SamX23/read-random-ayah#readme"
 }
