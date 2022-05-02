@@ -28,7 +28,7 @@ const AyahNavigation = ({ styles, data, ayah, numberOfAyahs }) => {
         type="button"
         onClick={() => handlePrevious()}
       >
-        {"↼"}
+        ↼
       </button>
 
       <div className={styles.ayah_description}>
@@ -42,7 +42,7 @@ const AyahNavigation = ({ styles, data, ayah, numberOfAyahs }) => {
         type="button"
         onClick={() => handleNext()}
       >
-        {"⇁"}
+        ⇁
       </button>
     </div>
   );
