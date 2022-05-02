@@ -1,4 +1,4 @@
-import Meta from "../components/meta";
+import Meta from "../components/atoms/MetaTags";
 import "../styles/globals.css";
 import { StateProvider } from "../utils/context";
 import reducer, { initialState } from "../utils/reducer";
