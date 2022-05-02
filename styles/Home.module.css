@@ -11,19 +11,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@500&display=swap");
 
-.container {
-  padding: 0 0.5rem;
-  background-color: #e8e2d1 !important;
-  -webkit-tap-highlight-color: transparent;
-}
-
 .main {
-  display: grid;
-  grid-template-rows: 1fr 10fr 1fr;
-  height: 100vh;
-  row-gap: 1rem;
-  align-content: stretch;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  padding: 0 10px;
+  row-gap: 0.5rem;
   text-align: center;
+  max-width: 1100px;
+  margin: auto;
   color: #2b2b2a;
 }
 
@@ -35,17 +31,6 @@
   padding-bottom: 0.75rem;
 }
 
-.ayah {
-  font-family: "me-quran";
-  font-weight: 200 !important;
-  margin: auto;
-}
-
-.bismillahContainer {
-  border-bottom: 1px solid #2b2b2a;
-  align-items: center;
-}
-
 .ayahContainer {
   position: relative;
   padding: 4em 0;
@@ -55,37 +40,6 @@
 .ayahContainer > h2 {
   font-size: 3rem;
   margin: auto;
-}
-
-.mode {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-}
-
-.mode > button {
-  font-family: "Arima Madurai", cursive;
-  font-weight: 900;
-  width: 3rem;
-  height: 3rem;
-  background-color: #eeeeee;
-  color: #4e5c4a;
-  border: unset;
-  border-radius: 2em;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.mode > button:hover {
-  background-color: #2a6e18;
-  color: #dadfe1;
-  transition: 0.3s;
-}
-
-.mode > button:active {
-  background-color: #eeeeee;
-  color: #4e5c4a;
-  transition: 0.3s;
 }
 
 .translate {
@@ -119,6 +73,7 @@
 }
 
 .ayah_panel {
+  flex: 1;
   grid-template-columns: 1fr 10fr 1fr;
   align-items: center;
 }
@@ -131,8 +86,7 @@
   font-size: 2rem;
   width: 100%;
   padding: 1rem;
-  border: 2px 2px;
-  border-color: #2b2b2a;
+  border: unset;
   outline: none;
   transition: 0.3s;
 }
@@ -155,7 +109,7 @@
 
 .ayah_description {
   display: grid;
-  height: 94%;
+  height: 100%;
   background-color: #eeeeee;
   color: #2b2b2a;
 }

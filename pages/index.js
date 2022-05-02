@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import randomFetch from "../utils/fetch";
-import Layout from "../components/layout";
+import Layout from "../components/templates/layout";
+import SurahLayout from "../components/organisms/AyahBody";
 import styles from "../styles/Home.module.css";
-import SurahLayout from "../components/randomSurah/layout";
 import { useGlobalState } from "../utils/context";
 
 export default function Home() {
@@ -26,10 +26,8 @@ export default function Home() {
 
   return (
     <Layout>
-      <main className={styles.container}>
-        <div className={styles.main}>
-          {dataSource && <SurahLayout styles={styles} />}
-        </div>
+      <main className={styles.main}>
+        {dataSource && <SurahLayout styles={styles} />}
       </main>
     </Layout>
   );
