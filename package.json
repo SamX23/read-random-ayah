@@ -8,19 +8,14 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "latest",
-    "next-pwa": "^5.4.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "next": "^13.2.4",
+    "next-pwa": "^5.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "eslint": "^7.23.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.23.1",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint": "8.28.0",
+    "eslint-config-next": "13.0.5"
   },
   "description": "I develop this simple app to generate random ayah when opened. My achievement is to create it as simple as possible.",
   "main": "next.config.js",
