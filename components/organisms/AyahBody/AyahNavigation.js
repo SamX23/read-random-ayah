@@ -33,7 +33,7 @@ const AyahNavigation = ({ styles, data, ayah, numberOfAyahs }) => {
 
       <div className={styles.ayah_description}>
         <h3>
-          Surah {data.englishName}[{data.number}] : {ayah.numberInSurah}
+          Surah {data?.englishName}[{data?.number}] : {ayah?.numberInSurah}
         </h3>
       </div>
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { useGlobalState } from "../../../utils/context";
 import { randomAyah } from "../../../utils/randomNum";
@@ -19,48 +19,48 @@ const SurahLayout = ({ styles }) => {
   const valid = status === "OK";
   const source = getTranslate(numberSurah, currentAyah + 1);
 
-  useEffect(() => {
-    if (valid) {
-      const maxAyah = data?.numberOfAyahs;
+  const ayah = useMemo(() => data?.ayahs[currentAyah], [currentAyah, data]);
+  const numberOfAyahs = useMemo(() => data?.numberOfAyahs, [data]);
 
+  useEffect(() => {
+    valid &&
       dispatch({
         type: "SET_AYAH",
-        currentAyah: randomAyah(0, maxAyah),
+        currentAyah: randomAyah(0, numberOfAyahs),
       });
-    }
-  }, [dataSource]);
+  }, [dispatch, numberOfAyahs, valid]);
 
   useEffect(() => {
     let mounted = true;
 
-    if (valid) {
-      setNumberSurah(data?.number);
-      fetch(source)
-        .then((response) => response.json())
-        .then((res) => mounted && setTranslate(res))
-        .catch((err) => console.log("Error : ", err));
-    }
+    valid && mounted && setNumberSurah(data?.number);
 
-    console.log("asd");
+    const fetchTranslate = async () => {
+      try {
+        const response = await fetch(source);
+        const res = await response.json();
+        setTranslate(res);
+      } catch (err) {
+        console.log("Error : ", err);
+      }
+    };
+
+    valid && fetchTranslate();
 
     return () => {
       mounted = false;
     };
-  }, [currentAyah, numberSurah]);
+  }, [data?.number, source, valid]);
 
   return (
     <>
       {valid ? (
         <>
-          <Ayah
-            styles={styles}
-            ayah={data?.ayahs[currentAyah]}
-            text={translate?.data}
-          />
+          <Ayah styles={styles} ayah={ayah} text={translate?.data} />
           <AyahNavigation
             styles={styles}
             data={data}
-            ayah={data?.ayahs[currentAyah]}
+            ayah={ayah}
             numberOfAyahs={data?.numberOfAyahs}
           />
         </>
