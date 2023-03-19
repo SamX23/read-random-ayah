@@ -1,4 +1,4 @@
-const URLSUTANLAB = "https://api.quran.sutanlab.id/surah";
+const URLSUTANLAB = "https://api.quran.gading.dev/surah";
 const URLALQURANCLOUD = "https://api.alquran.cloud/v1/surah";
 
 /**
